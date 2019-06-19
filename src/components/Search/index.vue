@@ -20,7 +20,6 @@
                     <p>2018-11-16</p>
                 </div>
             </li> -->
-
             <li v-for="item in moviesList" :key="item.id">
                 <div class="img">
                     <img :src="item.img | setWH('128.180')">
@@ -60,9 +59,12 @@ export default {
         message(newValue) {
             // console.log(newValue)
             var that = this;
+
+            var cityId = this.$store.state.city.id;
+
             this.cancelRequest();
 
-            this.axios.get('/api/searchList?cityId=10&kw='+newValue,{
+            this.axios.get('/api/searchList?cityId='+cityId+'&kw='+newValue,{
                 cancelToken: new this.axios.CancelToken(function(c) {
                     // console.log(111);
                    that.source = c;

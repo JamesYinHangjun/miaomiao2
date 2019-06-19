@@ -5,7 +5,7 @@
         <!-- 二级导航 -->
         <div class="movie_menu">
             <router-link tag="div" to="/movie/city" class="city_name">
-                <span>大连</span>
+                <span>{{$store.state.city.nm}}</span>
                 <i class="iconfont icon-lower-triangle"></i>
             </router-link>
             <div class="hot_swtich">
@@ -29,11 +29,44 @@
 <script>
 import Header from '@/components/Header'
 import TabBar from '@/components/TabBar'
+import { messageBox } from '@/components/JS'
 export default {
     name: 'Movie',
     components: {
         Header,
         TabBar
+    },
+    mounted() {
+
+        // /api/getLocation 这个接口是获取当前定位的，当获取当前定位后，会弹出定位信息框
+        setTimeout(() => {
+            this.axios.get('/api/getLocation').then((res) => {
+                var msg = res.data.msg;
+                if( msg === 'ok') {
+
+                    var nm = res.data.data.nm;
+                    var id = res.data.data.id;
+
+                    // 当消息框的定位和当前定位一样时，就不需要切换定位
+                    if( this.$store.state.city.id == id) {return;}
+                    messageBox({
+                        title: '定位',
+                        content: nm,
+                        cancel: '取消',
+                        ok: '切换定位',
+                        // handleCancel(){
+                        //     console.log(1);
+                        // },
+                        handleOk() {
+                            // 点击，开始切换定位
+                            window.localStorage.setItem('nowNm',nm);
+                            window.localStorage.setItem('nowId',id);
+                            window.location.reload();
+                        }
+                    })
+                }
+            });
+        },3000);
     }
 }
 </script>

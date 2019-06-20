@@ -1,29 +1,34 @@
 <template>
-<div id="main">
-    <Header title="喵喵电影" />
-    <div id="content">
-        <!-- 二级导航 -->
-        <div class="movie_menu">
-            <router-link tag="div" to="/movie/city" class="city_name">
-                <span>{{$store.state.city.nm}}</span>
-                <i class="iconfont icon-lower-triangle"></i>
-            </router-link>
-            <div class="hot_swtich">
-                <router-link tag="div" to="/movie/nowPlaying" class="hot_item">正在热映</router-link>
-                <router-link tag="div" to="/movie/comingSoon" class="hot_item">即将上映</router-link>
+    <div id="main">
+        <Header title="喵喵电影" />
+            <div id="content">
+                <!-- 二级导航 -->
+                <div class="movie_menu">
+                    <router-link tag="div" to="/movie/city" class="city_name">
+                        <span>{{$store.state.city.nm}}</span>
+                        <i class="iconfont icon-lower-triangle"></i>
+                    </router-link>
+                    <div class="hot_swtich">
+                        <router-link tag="div" to="/movie/nowPlaying" class="hot_item">
+                            正在热映
+                        </router-link>
+                        <router-link tag="div" to="/movie/comingSoon" class="hot_item">
+                            即将上映
+                        </router-link>
+                    </div>
+                    <router-link tag="div" to="/movie/search" class="search_entry">
+                        <i class="iconfont icon-sousuo"></i>
+                    </router-link>
+                </div>
+                <!-- 二级路由的渲染 -->
+                <keep-alive>
+                    <router-view />
+                </keep-alive>
             </div>
-            <router-link tag="div" to="/movie/search" class="search_entry">
-                <i class="iconfont icon-sousuo"></i>
-            </router-link>
-        </div>
-        <!-- 二级路由的渲染 -->
-        <keep-alive>
-            <router-view />
-        </keep-alive>
-
+        
+        <TabBar />
+        <router-view name="detail" />
     </div>
-    <TabBar />
-</div>
 </template>
 
 <script>

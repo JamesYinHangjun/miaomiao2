@@ -88,23 +88,23 @@
 
 <figure class="third">
 
-<img src="https://github.com/yaogengzhu/JamesYinHangjun/blob/master/Images/City.png?raw=true" width=200 height=400 alt="City">
-<img src="https://github.com/yaogengzhu/JamesYinHangjun/blob/master/showImage/NowPlaying.png?raw=true" width=200 height=400 alt="NowPlaying">
-<img src="https://github.com/yaogengzhu/JamesYinHangjun/blob/master/showImage/ComingSoon.png?raw=true" width=200 height=400 alt="ComingSoon">
+<img src="https://github.com/JamesYinHangjun/miaomiao2/blob/dev/Images/City.png?raw=true" width=200 height=400 alt="City">
+<img src="https://github.com/JamesYinHangjun/miaomiao2/blob/dev/Images/NowPlaying.png?raw=true" width=200 height=400 alt="NowPlaying">
+<img src="https://github.com/JamesYinHangjun/miaomiao2/blob/dev/Images/ComingSoon.png?raw=true" width=200 height=400 alt="ComingSoon">
 
 </figure>
 
 <figure class="third">
 
-<img src="https://github.com/yaogengzhu/JamesYinHangjun/blob/master/showImage/Search.png?raw=true" width=200 height=400 alt="Search">
-<img src="https://github.com/yaogengzhu/JamesYinHangjun/blob/master/showImage/detailMovie.png?raw=true" width=200 height=400 alt="detailMovie">
-<img src="https://github.com/yaogengzhu/JamesYinHangjunmaioyan/blob/master/showImage/CiList.png?raw=true" width=200 height=400 alt="Cilist">
+<img src="https://github.com/JamesYinHangjun/miaomiao2/blob/dev/Images/Search.png?raw=true" width=200 height=400 alt="Search">
+<img src="https://github.com/JamesYinHangjun/miaomiao2/blob/dev/Images/detailMovie.png?raw=true" width=200 height=400 alt="detailMovie">
+<img src="https://github.com/JamesYinHangjun/miaomiao2/blob/dev/Images/CiList.png?raw=true" width=200 height=400 alt="Cilist">
 
 </figure>
 
 <figure class="one">
 
-<img src="https://github.com/yaogengzhu/JamesYinHangjun/blob/master/showImage/Mine.png?raw=true" width=200 height=400 alt="Mine">
+<img src="https://github.com/JamesYinHangjun/miaomiao2/blob/dev/Images/Mine.png?raw=true" width=200 height=400 alt="Mine">
 
 </figure >
 

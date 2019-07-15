@@ -15,6 +15,7 @@
 ```md
 .
 ├── README.md
+├── READ.md
 ├── babel.config.js
 ├── package-lock.json
 ├── package.json

@@ -55,7 +55,8 @@ export default {
            }
        }
    },
-    watch: {
+    watch: {    // 允许异步操作
+        // 监听message变化
         message(newValue) {
             // console.log(newValue)
             var that = this;
@@ -78,7 +79,7 @@ export default {
                 }
             }).catch((err) => {
                 if (this.axios.isCancel(err)) {
-                    console.log('Rquest canceled', err.message); //请求如果被取消，这里是返回取消的message
+                    console.log('Request canceled', err.message); //请求如果被取消，这里是返回取消的message
                 } else {
                     //handle error
                     console.log(err);

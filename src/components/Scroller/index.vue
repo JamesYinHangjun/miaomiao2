@@ -1,5 +1,6 @@
 <template>
-    <div class="wrapper" ref="wrapper">
+    <!-- 最外层容器 -->
+    <div class="wrapper" ref="wrapper">              
         <slot></slot>
     </div>
 </template>

@@ -22,8 +22,7 @@
     				<div>
     					<span>{{ item.nm }}</span>
     					<span class="q">
-                            <span class="price">{{ item.sellPrice }}
-                            </span> 元起
+                            <span class="price">{{ item.sellPrice }}</span>元起
                         </span>
     				</div>
     				<div class="address">
@@ -68,7 +67,7 @@ export default {
         })
     },
     filters: {
-        // 根绝key 返回值
+        // 根据key 返回值
         formatCard(key) {
             var card = [
                 {

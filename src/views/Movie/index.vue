@@ -1,31 +1,35 @@
 <template>
     <div id="main">
         <Header title="喵喵电影" />
-            <div id="content">
-                <!-- 二级导航 -->
-                <div class="movie_menu">
-                    <router-link tag="div" to="/movie/city" class="city_name">
-                        <span>{{$store.state.city.nm}}</span>
-                        <i class="iconfont icon-lower-triangle"></i>
+
+        <!-- 中间的城市、正在热映、即将上映、搜索 -->
+        <div id="content">
+            <!-- 二级导航 -->
+            <div class="movie_menu">
+                <router-link tag="div" to="/movie/city" class="city_name">
+                    <span>{{$store.state.city.nm}}</span>
+                    <i class="iconfont icon-lower-triangle"></i>
+                </router-link>
+
+                <div class="hot_swtich">
+                    <router-link tag="div" to="/movie/nowPlaying" class="hot_item">
+                        正在热映
                     </router-link>
-                    <div class="hot_swtich">
-                        <router-link tag="div" to="/movie/nowPlaying" class="hot_item">
-                            正在热映
-                        </router-link>
-                        <router-link tag="div" to="/movie/comingSoon" class="hot_item">
-                            即将上映
-                        </router-link>
-                    </div>
-                    <router-link tag="div" to="/movie/search" class="search_entry">
-                        <i class="iconfont icon-sousuo"></i>
+                    <router-link tag="div" to="/movie/comingSoon" class="hot_item">
+                        即将上映
                     </router-link>
                 </div>
-                <!-- 二级路由的渲染 -->
-                <keep-alive>
-                    <router-view />
-                </keep-alive>
+
+                <router-link tag="div" to="/movie/search" class="search_entry">
+                    <i class="iconfont icon-sousuo"></i>
+                </router-link>
             </div>
-        
+            <!-- 二级路由的渲染 -->
+            <keep-alive>
+                <router-view />
+            </keep-alive>
+        </div>
+
         <TabBar />
         <router-view name="detail" />
     </div>
@@ -42,13 +46,11 @@ export default {
         TabBar
     },
     mounted() {
-
         // /api/getLocation 这个接口是获取当前定位的，当获取当前定位后，会弹出定位信息框
         setTimeout(() => {
             this.axios.get('/api/getLocation').then((res) => {
                 var msg = res.data.msg;
                 if( msg === 'ok') {
-
                     var nm = res.data.data.nm;
                     var id = res.data.data.id;
 
@@ -94,10 +96,10 @@ export default {
     line-height: 45px;
 }
 
-.movie_menu .city_name.active {
+/* .movie_menu .city_name.active {
     color: #ef4238;
     border-bottom: 2px #ef4238 solid;
-}
+} */
 
 .movie_menu .city_name.router-link-active {
     color: #ef4238;
@@ -123,7 +125,6 @@ export default {
     color: #ef4238;
     border-bottom: 2px #ef4238 solid;
 }
-
 .movie_menu .hot_item.router-link-active {
     color: #ef4238;
     border-bottom: 2px #ef4238 solid;
@@ -139,7 +140,6 @@ export default {
     color: #ef4238;
     border-bottom: 2px #ef4238 solid;
 }
-
 .movie_menu .search_entry.router-link-active {
     color: #ef4238;
     border-bottom: 2px #ef4238 solid;

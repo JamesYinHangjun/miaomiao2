@@ -6,7 +6,7 @@ import store from './stores'
 import axios from 'axios'
 Vue.prototype.axios = axios
 
-// 用于处理图片的
+// 用于处理图片的(自定义宽高的)  
 Vue.filter('setWH',(url,arg) => {
     return url.replace(/w\.h/,arg)
 })

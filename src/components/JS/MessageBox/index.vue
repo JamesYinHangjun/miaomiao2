@@ -26,7 +26,7 @@ export default {
     position: absolute;
     left: 50%;
     top: 50%;
-    margin: -70px 0 0 -100px;
+    margin: -60px 0 0 -100px;
 }
 .messageBox h2 {
     text-align: center;

@@ -3,7 +3,7 @@
     <Loading v-if="isLoading"/>
     <Scroller v-else :handleToScroll="handleToScroll" :handleToTouchEnd="handleToTouchEnd">
         <ul>
-            <!-- <li>
+            <!-- <li> 
                 <div class="pic_show">
                     <img src="/images/movie_1.jpg">
                 </div>
@@ -23,15 +23,18 @@
             <li v-for="item in movieList" :key="item.id">
                 <div class="pic_show" @tap="handleToDetail(item.id)">
                     <img :src="item.img | setWH('128.180')">
-                </div>
+                </div> 
                 <div class="info_list">
-                    <h2 @tap="handleToDetail(item.id)">{{item.nm}} <img v-if="item.version" src="@/assets/maxs.png"></h2>
+                    <!-- 标题 -->
+                    <h2 @tap="handleToDetail(item.id)">{{item.nm}}
+                        <img v-if="item.version" src="@/assets/maxs.png">
+                    </h2>
                     <p>观众评
                         <span class="grade">{{ item.sc }}</span>
                     </p>
                     <p>主演: {{ item.star }}</p>
                     <p>{{ item.showInfo }}</p>
-                </div>
+                </div> 
                 <div class="btn_mall">
                     购票
                 </div>
@@ -48,14 +51,18 @@ export default {
     name: 'NowPlaying',
     data() {
         return {
-            movieList: [],
+            movieList: [],         // 存放所有电影信息
             pullDownMsg: '',      // 下拉信息
             isLoading: true,  // 初始值为true,当页面加载完成后变为false
-            prevCityId: -1
+            prevCityId: -1    // 上一次城市的 id
         }
     },
+    // activated 是在 keep-alive激活时调用
     activated() {
         var cityId = this.$store.state.city.id;
+
+        // 当切换城市时，需要再次请求ajax;
+        // 而不是城市切换时，比如说从 即将上映 切换到 正在热映，就不需要再次请求ajax
         if(this.prevCityId === cityId) {return;}   // 相同的话表示没有切换城市
         this.isLoading = true;
 
@@ -63,23 +70,25 @@ export default {
         .then((res) => {
             var msg = res.data.msg;
             if( msg === 'ok' ) {
-                this.movieList = res.data.data.movieList;
+                this.movieList = res.data.data.movieList;   
 
                 // 页面加载完成后
                 this.isLoading = false;
 
                 this.prevCityId = cityId;
+
                 // 当数据全部渲染完成之后，触发 new BScroll() 滑动方法
                 // this.$nextTick(() => {
                 //     // 需要满足最外层容器小，里面容器大，才可以滑动
                 //     // 两个参数： 第一个参数是最外层包裹的容器，第二个参数是配置
                 //     // 滑动时不触发，点击时触发
                 //     var scroll = new BScroll(this.$refs.movie_body, {
-                //         tap: true,
-                //         // 该值为1时，滚动时会派发scroll 事件，会截流
+                //         tap: true,    // 允许滑动的元素可以点击，滑动没效果
+                //         // 该值为1时，滚动时会派发scroll 事件，会截流(一段时间触发一次)
                 //         probeType: 1
                 //     });
                 //
+                        // 下拉时触发
                 //     scroll.on('scroll',(pos) => {
                 //         // console.log('scroll');
                 //         if( pos.y > 30) {
@@ -87,7 +96,7 @@ export default {
                 //         }
                 //     });
                 //
-                //     // 滑动结束触发该事件
+                //     // 滑动结束触发该事件(鼠标离开页面)
                 //     scroll.on('touchEnd',(pos) => {
                 //         // console.log('touchEnd')
                 //         if( pos.y > 30) {
@@ -119,7 +128,7 @@ export default {
         },
         handleToTouchEnd(pos) {
             if( pos.y > 30) {
-                 this.axios.get('/api/movieOnInfoList?cityId=11').then((res) => {
+                 this.axios.get('/api/movieOnInfoList?cityId='+cityId).then((res) => {
                      var msg = res.data.msg;
                      if( msg === 'ok' ) {
                          this.pullDownMsg = '更新成功'

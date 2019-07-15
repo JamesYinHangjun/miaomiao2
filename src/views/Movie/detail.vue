@@ -96,7 +96,7 @@ export default {
     props: ['movieId'],
     methods: {
         handleToBack() {
-            this.$router.back();
+            this.$router.back();     //返回前一个页面
         }
     },
     mounted() {

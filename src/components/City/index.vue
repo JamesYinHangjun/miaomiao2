@@ -24,16 +24,14 @@
 				<li>A</li>
 				<li>B</li>
 				<li>C</li>
-				<li>D</li>
-				<li>E</li>
 			</ul>
 		</div> -->
 
         <div class="city_list">
             <Loading v-if="isLoading"/>
 
-            <!-- 只针对一个子元素的，所以在外面加层div -->
             <Scroller ref="city_List" v-else>
+                <!-- 只针对一个子元素的，所以在外面加层div -->
                 <div>
                     <div class="city_hot">
         				<h2>热门城市</h2>
@@ -45,11 +43,13 @@
         				</ul>
         			</div>
 
+                    <!-- 热门城市下的各个排好序的城市 -->
+                    <!-- [{ index: 'A', list:[{nm:'安庆', id:123}]}] -->
                     <div class="city_sort" ref="city_sort">
         				<div v-for="item in cityList" :key="item.index">
         					<h2>{{ item.index }}</h2>
         					<ul>
-        						<li v-for="itemList in item.list"   :key="itemList.id" @tap="handleToCity(itemList.nm,itemList.id)">
+        						<li v-for="itemList in item.list" :key="itemList.id" @tap="handleToCity(itemList.nm,itemList.id)">
                                     {{ itemList.nm }}
                                 </li>
         					</ul>
@@ -58,7 +58,8 @@
                 </div>
             </Scroller>
         </div>
-        <!-- 索引 -->
+
+        <!-- 右边索引 -->
         <div class="city_index">
 			<ul>
 				<li v-for="(item,index) in cityList" :key="item.index"
@@ -82,6 +83,7 @@ export default {
         }
     },
     mounted() {
+        // 当如果有本地存储，就在本地存储中取值。如果没有，就走下面的请求
         var cityList = window.localStorage.getItem('cityList');
         var hotList = window.localStorage.getItem('hotList');
 
@@ -89,9 +91,8 @@ export default {
             // 当有cityList 和 hotList 时
             this.cityList = JSON.parse(cityList);
             this.hotList = JSON.parse(hotList);
-            this.isLoading = false;
-        }
-        else {       // 没有值就往本地上存储数据
+            this.isLoading = false; // 保证不再重新加载
+        } else {       // 没有值就往本地上存储数据
             this.axios.get('/api/cityList').then((res) => {
                 // console.log(res);
                 var msg = res.data.msg;
@@ -101,27 +102,27 @@ export default {
                     var cities = res.data.data.cities;   // 所有城市
 
                     // 给所有城市分组，按照首拼py(拼音)
+                    // [{ index: 'A', list:[{nm:'安庆', id:123}]}]
                     var { cityList,hotList} =  this.formatCityList(cities);
-
+                    // 映射
                     this.cityList = cityList;
                     this.hotList = hotList;
 
-                    // 本地存储
+                    // 城市数据请求完成之后，进行本地存储
                     window.localStorage.setItem('cityList',JSON.stringify(cityList));
                     window.localStorage.setItem('hotList',JSON.stringify(hotList));
                 }
             })
         }
-
-
     },
     methods: {
+        // 给城市分组
         formatCityList(cities) {
             var cityList = [];   // 城市分类
             var hotList = [];   //热门城市
 
             // 热门城市
-            for(var i = 0; i <cities.length; i++) {
+            for(var i = 0; i < cities.length; i++) {
                 if(cities[i].isHot === 1 ) {
                     hotList.push(cities[i]);
                 }
@@ -132,7 +133,7 @@ export default {
                 // 拿到每个城市首拼
                 var firstLetter = cities[i].py.substring(0,1).toUpperCase();
 
-                if(toCom(firstLetter)) {   // 新添加index
+                if(toCom(firstLetter)) {   //比如说：没有A，就把A添加进去 新添加index,然后再添加城市
                     cityList.push({ index : firstLetter, list: [{ nm : cities[i].nm, id : cities[i].id}]});
                 } else {     // 累加到已有index 中
                     for(var j = 0 ;j < cityList.length; j++) {
@@ -154,32 +155,37 @@ export default {
                 }
             });
 
-
+            // 这个函数用来判断cityList中拥不拥有某个大写首拼
             function toCom(firstLetter) {
                 for(var i = 0; i < cityList.length; i++) {
                     if(cityList[i].index === firstLetter) {
-                        return false;     // 在结果集中
+                        return false;     // 在结果集中,表示有
                     }
                 }
-                return true;
+                return true;          // 表示没有
             }
 
-            // console.log(cityList)
+            // console.log(cityList);
             return {
                 cityList,
                 hotList
             }
 
         },
-        // 点击右边的索引
+        // 点击右边的索引，跳转到对应的索引下的城市
         handleToIndex(index) {
             var h2 = this.$refs.city_sort.getElementsByTagName('h2');
+            // this.$refs.city_sort.parentNode 指的是 city_list
             // this.$refs.city_sort.parentNode.scrollTop = h2[index].offsetTop;
 
+            // toScrollTop在 components/Scroller/index.vue 定义的
+            // this.$refs.city_List拿到 Scroller/index.vue 组件，然后调用其中的 toScrollTop
             this.$refs.city_List.toScrollTop(-h2[index].offsetTop);
         },
+
         handleToCity(nm,id) {
             this.$store.commit('city/CITY_INFO',{nm,id});
+            // 页面刷新的时候还是该城市，不会变成一开始的城市，存储到本地后，在Stores/city/index.js中取
             window.localStorage.setItem('nowNm',nm);
             window.localStorage.setItem('nowId',id);
             this.$router.push('/movie/nowPlaying');

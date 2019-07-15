@@ -14,7 +14,7 @@ export var messageBox = (function(){
 
     var MyComponent = Vue.extend(MessageBox);
 
-    return function( opts ) {     // 配置参数
+    return function( opts ) {     //opts: 配置参数
 
         for(var attr in opts) {
             defaults[attr] = opts[attr];

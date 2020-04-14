@@ -8,7 +8,7 @@ export var messageBox = (function(){
         content: '',
         cancel: '',
         ok: '',
-        handleCancel: null,
+        handleCancel: null,    // 取消和ok按钮具体要做的事
         handleOk: null
     };
 

@@ -21,8 +21,8 @@ export default {
     },
     mounted() {
         var scroll = new BScroll(this.$refs.wrapper,{
-            tap: true,
-            probeTybe: 1
+            tap: true,     // 允许滑动的元素可以点击
+            probeTybe: 1   // 滚动时会派发scroll事件,会截流(一段时间执行一次)
         });
 
         this.scroll = scroll;

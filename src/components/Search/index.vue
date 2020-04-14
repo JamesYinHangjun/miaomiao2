@@ -45,7 +45,7 @@ export default {
     data() {
         return {
             message: '',
-            moviesList: []
+            moviesList: []     // 电影列表
         }
     },
     methods: {
@@ -63,6 +63,7 @@ export default {
 
             var cityId = this.$store.state.city.id;
 
+            // 取消上一次请求
             this.cancelRequest();
 
             this.axios.get('/api/searchList?cityId='+cityId+'&kw='+newValue,{

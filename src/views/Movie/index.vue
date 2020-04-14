@@ -24,13 +24,18 @@
                     <i class="iconfont icon-sousuo"></i>
                 </router-link>
             </div>
+
             <!-- 二级路由的渲染 -->
+            <!-- 二级路由下内容的显示 -->
             <keep-alive>
                 <router-view />
             </keep-alive>
         </div>
 
+        <!-- 底部导航 -->
         <TabBar />
+
+        <!-- 电影详情页占位 -->
         <router-view name="detail" />
     </div>
 </template>

@@ -93,8 +93,9 @@ export default {
     components: {
         Header
     },
-    props: ['movieId'],
+    props: ['movieId'],      // movieId是通过路由传参传过来的
     methods: {
+        // 点击头部返回按钮返回
         handleToBack() {
             this.$router.back();     //返回前一个页面
         }
@@ -104,6 +105,8 @@ export default {
             .then((res) => {
                 var msg = res.data.msg;
                 if (msg === 'ok') {
+
+                    // 控制点击电影进入detail时的加载loading
                     this.isLoading = false;
                     this.detailMovie = res.data.data.detailMovie;
 

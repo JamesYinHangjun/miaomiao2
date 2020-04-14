@@ -59,7 +59,7 @@
             </Scroller>
         </div>
 
-        <!-- 右边索引 -->
+        <!-- 右边索引  点击右边的索引，跳转到对应的索引下的城市 -->		
         <div class="city_index">
 			<ul>
 				<li v-for="(item,index) in cityList" :key="item.index"
@@ -83,12 +83,12 @@ export default {
         }
     },
     mounted() {
-        // 当如果有本地存储，就在本地存储中取值。如果没有，就走下面的请求
+        // 当如果有本地存储，就在本地存储中取值，不用发新的请求。如果没有，就走下面的请求
         var cityList = window.localStorage.getItem('cityList');
         var hotList = window.localStorage.getItem('hotList');
 
         if(cityList && hotList) {
-            // 当有cityList 和 hotList 时
+            // 当cityList 和 hotList 同时存在时(本地存储存了值了)
             this.cityList = JSON.parse(cityList);
             this.hotList = JSON.parse(hotList);
             this.isLoading = false; // 保证不再重新加载
@@ -109,6 +109,7 @@ export default {
                     this.hotList = hotList;
 
                     // 城市数据请求完成之后，进行本地存储
+                    // 本地存储，存的是字符串类型
                     window.localStorage.setItem('cityList',JSON.stringify(cityList));
                     window.localStorage.setItem('hotList',JSON.stringify(hotList));
                 }
@@ -172,8 +173,10 @@ export default {
             }
 
         },
+
         // 点击右边的索引，跳转到对应的索引下的城市
         handleToIndex(index) {
+            // 点击跳到h2对应的位置上
             var h2 = this.$refs.city_sort.getElementsByTagName('h2');
             // this.$refs.city_sort.parentNode 指的是 city_list
             // this.$refs.city_sort.parentNode.scrollTop = h2[index].offsetTop;
@@ -183,11 +186,14 @@ export default {
             this.$refs.city_List.toScrollTop(-h2[index].offsetTop);
         },
 
+        // 改变store中的值
         handleToCity(nm,id) {
             this.$store.commit('city/CITY_INFO',{nm,id});
+            
             // 页面刷新的时候还是该城市，不会变成一开始的城市，存储到本地后，在Stores/city/index.js中取
             window.localStorage.setItem('nowNm',nm);
             window.localStorage.setItem('nowId',id);
+
             this.$router.push('/movie/nowPlaying');
         }
 

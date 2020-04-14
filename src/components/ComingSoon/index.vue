@@ -19,6 +19,7 @@
             </li> -->
 
             <li v-for="item in comingList" :key="item.id">
+                <!-- 点击进入详情 -->
                 <div class="pic_show" @tap="handleToDetail(item.id)">
                     <img :src="item.img | setWH('128.180')">
                 </div>
@@ -69,6 +70,7 @@ export default {
         })
     },
     methods: {
+        // 点击进入电影详情页
         handleToDetail(movieId) {
             this.$router.push('/movie/detail/2/' + movieId)
         }

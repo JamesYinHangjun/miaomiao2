@@ -45,13 +45,14 @@ export default {
     name: 'CiLlist',
     data() {
         return {
-            cinemaList: [],
+            cinemaList: [],     // 存放 所有电影院
             isLoading: true,
             prevCityId: -1
         }
     },
     activated() {
         var cityId = this.$store.state.city.id;
+        
         if(this.prevCityId === cityId) {return;}   // 相同的话表示没有切换城市
         this.isLoading = true;
 

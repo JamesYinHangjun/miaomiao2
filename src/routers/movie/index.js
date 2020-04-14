@@ -34,7 +34,7 @@ export default {
                 default: () => import('@/components/ComingSoon'),
                 detail: () => import('@/views/Movie/detail')
             },
-            props: {
+            props: {      //路由组件传参 对于包含命名视图的路由，你必须分别为每个命名视图添加 `props` 选项：
                 detail : true
             }
         },

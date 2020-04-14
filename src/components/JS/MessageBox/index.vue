@@ -1,4 +1,5 @@
 <template>
+    <!-- 弹窗 -->
     <div class="messageBox">
         <h2>{{ title }}</h2>
         <p>{{ content }}</p>

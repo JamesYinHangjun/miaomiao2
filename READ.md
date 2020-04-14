@@ -110,7 +110,7 @@
 </figure >
 
 
-## github上传过程
+## github的上传过程  
 
 #### 第一部分在createComponents分支上开发
 - git add .
@@ -318,3 +318,6 @@ mounted() {
         }
     }
 ```
+4.出现 Uncaught SyntaxError: Unexpected token '<' 错误
+原因: 在router/index.js中配置了 base: 'miaomiao'后，在vue.config.js下需要配置
+      publicPath: '/miaomiao'

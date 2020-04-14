@@ -1,4 +1,5 @@
 <template>
+    <!-- 数据没有加载成功时显示  -->
     <div class="loader">
 
     </div>

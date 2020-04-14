@@ -21,18 +21,21 @@
             <li class="pullDown">{{ pullDownMsg }}</li>
 
             <li v-for="item in movieList" :key="item.id">
+                <!-- 图片 -->
                 <div class="pic_show" @tap="handleToDetail(item.id)">
                     <img :src="item.img | setWH('128.180')">
                 </div> 
                 <div class="info_list">
-                    <!-- 标题 -->
+                    <!-- 电影名 -->
                     <h2 @tap="handleToDetail(item.id)">{{item.nm}}
+                        <!-- 是否有3d标识 -->
                         <img v-if="item.version" src="@/assets/maxs.png">
                     </h2>
                     <p>观众评
                         <span class="grade">{{ item.sc }}</span>
                     </p>
                     <p>主演: {{ item.star }}</p>
+                    <!-- 今天放映多少场次 -->
                     <p>{{ item.showInfo }}</p>
                 </div> 
                 <div class="btn_mall">
@@ -57,6 +60,10 @@ export default {
             prevCityId: -1    // 上一次城市的 id
         }
     },
+
+    // mounted生命周期，一旦有缓存系统keep-alive存在就不会再次触发
+    // 就是初始时触发，当切换到别处，再切换回来就不会再触发了
+    // 比如这里，根据cityId请求数据，会经常切换请求数据，mounted就不适用了
     // activated 是在 keep-alive激活时调用
     activated() {
         var cityId = this.$store.state.city.id;
@@ -78,6 +85,7 @@ export default {
                 this.prevCityId = cityId;
 
                 // 当数据全部渲染完成之后，触发 new BScroll() 滑动方法
+                // $nextTick() 是 当数据修改后，在视图中渲染完成之后，再执行$nextTick
                 // this.$nextTick(() => {
                 //     // 需要满足最外层容器小，里面容器大，才可以滑动
                 //     // 两个参数： 第一个参数是最外层包裹的容器，第二个参数是配置
@@ -88,7 +96,7 @@ export default {
                 //         probeType: 1
                 //     });
                 //
-                        // 下拉时触发
+                        // 下拉时触发 滚动时触发
                 //     scroll.on('scroll',(pos) => {
                 //         // console.log('scroll');
                 //         if( pos.y > 30) {
@@ -117,8 +125,9 @@ export default {
         })
     },
     methods: {
+        // 点击进入详情页
         handleToDetail(movieId) {
-            // console.log(222);
+            // console.log(movieId);
             this.$router.push('/movie/detail/1/' + movieId);
         },
         handleToScroll(pos) {
